@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{PAGE_TITLE}}</title>
+    <!-- <link rel="icon" type="image/png" sizes="32x32" href="favicon.png"> -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    {{OG_TAGS}}
+    <link href="https://fonts.googleapis.com/css2?family=Mukta+Mahee:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Lehar color palette */
+            --lehar-red: #e3120b;
+            --lehar-red-hover: #cc100a;
+            --lehar-dark-red: #b30e08;
+            --lehar-blue: #006ba6;
+            --lehar-light-blue: #0085c3;
+            --lehar-navy: #1c2833;
+            --lehar-grey: #5a6c7d;
+            --lehar-light-grey: #8fa4b1;
+            --lehar-background: #ffffff;
+            --lehar-off-white: #f8f9fa;
+            --lehar-border: #e9ecef;
+            --lehar-text: #212529;
+            --lehar-text-light: #6c757d;
+            --shadow-subtle: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+            --shadow-card: 0 4px 6px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Mukta Mahee', 'Crimson Text', Georgia, serif;
+            background-color: var(--lehar-background);
+            color: var(--lehar-text);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header - Lehar style with red bar */
+        header {
+            background: var(--lehar-background);
+            border-bottom: 4px solid var(--lehar-red);
+            padding: 2rem 0 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 1rem;
+        }
+
+        .logo img {
+            max-height: 60px;
+            width: auto;
+        }
+
+        /* Hide logo when it's empty or contains only whitespace */
+        .logo:empty,
+        .logo:has(img[src=""]),
+        .logo:has(img:not([src])) {
+            display: none;
+            margin-bottom: 0;
+        }
+
+        .masthead {
+            background: var(--lehar-red);
+            color: white;
+            padding: 0.75rem 2rem;
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .masthead::before,
+        .masthead::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 8px;
+            height: 100%;
+            background: var(--lehar-dark-red);
+        }
+
+        .masthead::before {
+            left: -8px;
+        }
+
+        .masthead::after {
+            right: -8px;
+        }
+
+        .subtitle {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.1rem;
+            color: var(--lehar-grey);
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .date-line {
+            font-size: 0.9rem;
+            color: var(--lehar-text-light);
+            font-weight: 500;
+        }
+
+        /* Navigation bar - Lehar style */
+        .nav-bar {
+            background: var(--lehar-navy);
+            padding: 0.5rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Main content area */
+        main {
+            padding: 0 1rem;
+        }
+
+        .section-header {
+            border-bottom: 2px solid var(--lehar-red);
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--lehar-navy);
+            margin: 0;
+        }
+
+        /* Issues grid - Clean, newspaper-like layout */
+        .issues-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Issue cards - Clean, professional styling */
+        .issue-card {
+            background: var(--lehar-background);
+            border: 1px solid var(--lehar-border);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .issue-card:hover {
+            box-shadow: var(--shadow-card);
+            border-color: var(--lehar-light-grey);
+        }
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--lehar-border);
+            height: 320px; /* Increased height to accommodate full cover */
+            background: var(--lehar-off-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .issue-card img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Changed from cover to contain to show full image */
+            transition: transform 0.3s ease;
+            border-radius: 3px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .issue-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .content {
+            padding: 1.5rem;
+        }
+
+        .issue-card h3 {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--lehar-navy);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .issue-card p {
+            font-size: 0.95rem;
+            color: var(--lehar-text-light);
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Download button - Lehar red styling */
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--lehar-red);
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            border: 2px solid var(--lehar-red);
+        }
+
+        .download-btn:hover {
+            background: var(--lehar-red-hover);
+            border-color: var(--lehar-red-hover);
+            transform: translateY(-1px);
+        }
+
+        .download-btn::before {
+            content: "↓";
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--lehar-off-white);
+            border: 1px solid var(--lehar-border);
+        }
+
+        .empty-state h2 {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.8rem;
+            color: var(--lehar-navy);
+            margin-bottom: 1rem;
+        }
+
+        .empty-state p {
+            color: var(--lehar-text-light);
+        }
+
+        /* Footer - Clean and minimal */
+        footer {
+            background: var(--lehar-off-white);
+            border-top: 1px solid var(--lehar-border);
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            font-size: 0.85rem;
+            color: var(--lehar-text-light);
+        }
+
+        .footer-content p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 2px;
+            background: var(--lehar-red);
+            margin: 1rem auto;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+            
+            .issues-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            
+            .image-container {
+                height: 280px;
+                padding: 12px;
+            }
+            
+            header {
+                padding: 1.5rem 0 1rem;
+            }
+            
+            .masthead {
+                font-size: 1.4rem;
+                padding: 0.6rem 1.5rem;
+            }
+            
+            .content {
+                padding: 1.25rem;
+            }
+            
+            main {
+                padding: 0 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .issues-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .issue-card {
+                max-width: 100%;
+            }
+            
+            .image-container {
+                height: 260px;
+                padding: 10px;
+            }
+            
+            .masthead {
+                font-size: 1.2rem;
+                padding: 0.5rem 1rem;
+            }
+            
+            .issue-card h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Print-friendly styles */
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .nav-bar {
+                display: none;
+            }
+            
+            .issue-card {
+                break-inside: avoid;
+            }
+        }
+
+        /* JavaScript fallback for hiding empty logo */
+        .logo-hidden {
+            display: none !important;
+            margin-bottom: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo" id="logoContainer">{{LOGO}}</div>
+                <div class="masthead">{{PAGE_TITLE}}</div>
+                <p class="subtitle">ਸਾਪਤਾਹਿਕ ਪੰਜਾਬੀ ਮੈਗਜ਼ੀਨ • ਡਿਜੀਟਲ ਸੰਗ੍ਰਹਿ</p>
+                <p class="date-line" id="current-date"></p>
+            </div>
+        </header>
+
+        <div class="nav-bar">
+            <div class="container">
+                <div class="nav-content">
+                    ਸੰਗ੍ਰਹਿ • ਅੰਕ • ਡਾਊਨਲੋਡ
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <div class="section-header">
+                <h2 class="section-title">ਨਵੇਂ ਅੰਕ</h2>
+            </div>
+            
+            <div class="issues-grid">
+                {{ISSUE_CARDS}}
+            </div>
+        </main>
+
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-divider"></div>
+                    <p id="copyright-year">&copy; <span id="current-year">2025</span> {{PAGE_TITLE}}</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Punjabi month names
+        const punjabiMonths = [
+            'ਜਨਵਰੀ', 'ਫਰਵਰੀ', 'ਮਾਰਚ', 'ਅਪ੍ਰੈਲ', 'ਮਈ', 'ਜੂਨ',
+            'ਜੁਲਾਈ', 'ਅਗਸਤ', 'ਸਤੰਬਰ', 'ਅਕਤੂਬਰ', 'ਨਵੰਬਰ', 'ਦਸੰਬਰ'
+        ];
+
+        // Display current date in proper Punjabi format
+        const currentDate = new Date();
+        const day = currentDate.getDate();
+        const month = punjabiMonths[currentDate.getMonth()];
+        const year = currentDate.getFullYear();
+        
+        document.getElementById('current-date').textContent = `${day} ${month} ${year}`;
+        
+        // Update copyright year dynamically
+        document.getElementById('current-year').textContent = currentDate.getFullYear();
+
+        // Hide logo container if it's empty or only contains whitespace/placeholders
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoContainer = document.getElementById('logoContainer');
+            const logoContent = logoContainer.innerHTML.trim();
+            
+            // Check if logo is empty, contains only whitespace, or contains the placeholder
+            if (!logoContent || 
+                logoContent === '{{LOGO}}' || 
+                logoContent === '' ||
+                logoContent.match(/^\s*$/)) {
+                logoContainer.classList.add('logo-hidden');
+            }
+            
+            // Also check if logo contains an empty img tag
+            const logoImg = logoContainer.querySelector('img');
+            if (logoImg && (!logoImg.src || logoImg.src === '' || logoImg.src.includes('{{') || logoImg.src === window.location.href)) {
+                logoContainer.classList.add('logo-hidden');
+            }
+        });
+    </script>
+</body>
+</html>

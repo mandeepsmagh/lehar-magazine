@@ -1,0 +1,16 @@
+{
+  "site_meta": {
+    "site_name": "ਲਹਿਰ",
+    "default_description": "ਪੰਜਾਬੀ weekly",
+    "base_url": "https://mandeepsmagh.github.io/lehar-magazine",
+    "logo": "assets/logo.png"
+  },
+  "issues": [
+    {
+      "title": "ਅਗਸਤ ਪਹਿਲਾ ਅੰਕ",
+      "pdf": "issues/lehar-2025-08-01.pdf",
+      "cover": "issues/lehar-2025-08-01-cover.png",
+      "description": ""
+    }
+  ]
+}
