@@ -4,10 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="ਪੰਜਾਬੀ ਮੈਗਜ਼ੀਨ, ਪੰਜਾਬੀ ਖ਼ਬਰਾਂ, ਪੰਜਾਬੀ ਲੇਖ, ਪੰਜਾਬੀ ਸਾਹਿਤ, ਪੰਜਾਬੀ ਸੰਗੀਤ, ਪੰਜਾਬੀ ਸੰਸਕ੍ਰਿਤੀ, Punjabi magazine, Punjabi news, Punjabi articles">
-    <title>{{PAGE_TITLE}}</title>
+    <title>$site_meta.site_name$</title>
     <!-- <link rel="icon" type="image/png" sizes="32x32" href="favicon.png"> -->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-    {{OG_TAGS}}
+$if(latest)$
+    <meta property="og:title" content="$latest.title$ | $site_meta.site_name$">
+    <meta property="og:description" content="$if(latest.description)$$latest.description$$else$$site_meta.default_description$$endif$">
+    <meta property="og:image" content="$site_meta.base_url$/$latest.cover$">
+    <meta property="og:site_name" content="$site_meta.site_name$">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pa_IN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="$site_meta.base_url$/$latest.cover$">
+    <meta name="description" content="$if(latest.description)$$latest.description$$else$$site_meta.default_description$$endif$">
+$else$
+    <meta property="og:title" content="$site_meta.site_name$">
+    <meta property="og:description" content="$site_meta.default_description$">
+    <meta property="og:site_name" content="$site_meta.site_name$">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pa_IN">
+    <meta name="twitter:card" content="summary">
+    <meta name="description" content="$site_meta.default_description$">
+$endif$
     <link href="https://fonts.googleapis.com/css2?family=Mukta+Mahee:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -390,8 +408,8 @@
     <div class="container">
         <header>
             <div class="header-content">
-                <div class="logo" id="logoContainer">{{LOGO}}</div>
-                <div class="masthead">{{PAGE_TITLE}}</div>
+                <div class="logo" id="logoContainer">$if(site_meta.logo)$<img src="$site_meta.logo$" alt="$site_meta.site_name$">$endif$</div>
+                <div class="masthead">$site_meta.site_name$</div>
                 <p class="subtitle">ਪੰਜਾਬੀ ਮੈਗਜ਼ੀਨ • ਡਿਜੀਟਲ ਸੰਗ੍ਰਹਿ</p>
                 <p class="date-line" id="current-date"></p>
             </div>
@@ -411,7 +429,27 @@
             </div>
             
             <div class="issues-grid">
-                {{ISSUE_CARDS}}
+$if(issues)$
+$for(issues)$
+                <div class="issue-card">
+                    <div class="image-container">
+                        <img src="$it.cover$" alt="$it.title$" loading="lazy">
+                    </div>
+                    <div class="content">
+                        <h3>$it.title$</h3>
+$if(it.description)$
+                        <p>$it.description$</p>
+$endif$
+                        <a href="$it.pdf$" class="download-btn" download>PDF ਡਾਊਨਲੋਡ ਕਰੋ</a>
+                    </div>
+                </div>
+$endfor$
+$else$
+                <div class="empty-state">
+                    <h2>ਅਜੇ ਕੋਈ ਅੰਕ ਨਹੀਂ</h2>
+                    <p>ਜਲਦੀ ਹੀ ਨਵਾਂ ਅੰਕ ਆਵੇਗਾ।</p>
+                </div>
+$endif$
             </div>
         </main>
 
@@ -419,7 +457,7 @@
             <div class="container">
                 <div class="footer-content">
                     <div class="footer-divider"></div>
-                    <p id="copyright-year">&copy; <span id="current-year">2025</span> {{PAGE_TITLE}}</p>
+                    <p id="copyright-year">&copy; <span id="current-year">2025</span> $site_meta.site_name$</p>
                 </div>
             </div>
         </footer>
@@ -438,7 +476,7 @@
         const month = punjabiMonths[currentDate.getMonth()];
         const year = currentDate.getFullYear();
         
-        document.getElementById('current-date').textContent = `${day} ${month} ${year}`;
+        document.getElementById('current-date').textContent = day + ' ' + month + ' ' + year;
         
         // Update copyright year dynamically
         document.getElementById('current-year').textContent = currentDate.getFullYear();
@@ -452,7 +490,7 @@
             if (!logoContent || 
                 logoContent === '{{LOGO}}' || 
                 logoContent === '' ||
-                logoContent.match(/^\s*$/)) {
+                logoContent.match(/^\s*$$/)) {
                 logoContainer.classList.add('logo-hidden');
             }
             
