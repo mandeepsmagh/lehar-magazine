@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <meta name="keywords" content="ਪੰਜਾਬੀ ਮੈਗਜ਼ੀਨ, ਪੰਜਾਬੀ ਖ਼ਬਰਾਂ, ਪੰਜਾਬੀ ਲੇਖ, ਪੰਜਾਬੀ ਸਾਹਿਤ, ਪੰਜਾਬੀ ਸੰਗੀਤ, ਪੰਜਾਬੀ ਸੰਸਕ੍ਰਿਤੀ, Punjabi magazine, Punjabi news, Punjabi articles">
     <title>$site_meta.site_name$</title>
     <!-- <link rel="icon" type="image/png" sizes="32x32" href="favicon.png"> -->
@@ -26,25 +27,43 @@ $else$
     <meta name="twitter:card" content="summary">
     <meta name="description" content="$site_meta.default_description$">
 $endif$
-    <link href="https://fonts.googleapis.com/css2?family=Mukta+Mahee:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
+        /* Sama Gurmukhi is an Apple font. A device without it loads this file (34 KB, once). A device with it never does. */
+        @font-face {
+            font-family: "Lehar Gurmukhi";
+            src: url("assets/fonts/noto-sans-gurmukhi.woff2") format("woff2");
+            font-weight: 400 700;
+            font-display: swap;
+            unicode-range: U+0951-0952, U+0964-0965, U+0A01-0A76, U+200C-200D, U+20B9, U+25CC, U+262C, U+A830-A839;
+        }
+
+        /* Colours follow the design language: red, then the grey scale. */
         :root {
-            /* Lehar color palette */
             --lehar-red: #e3120b;
             --lehar-red-hover: #cc100a;
-            --lehar-dark-red: #b30e08;
-            --lehar-blue: #006ba6;
-            --lehar-light-blue: #0085c3;
-            --lehar-navy: #1c2833;
-            --lehar-grey: #5a6c7d;
-            --lehar-light-grey: #8fa4b1;
+            --lehar-bar: #1a1a1a;
+            --lehar-grey: #666666;
+            --lehar-light-grey: #b3b3b3;
             --lehar-background: #ffffff;
-            --lehar-off-white: #f8f9fa;
-            --lehar-border: #e9ecef;
-            --lehar-text: #212529;
-            --lehar-text-light: #6c757d;
+            --lehar-off-white: #f2f2f2;
+            --lehar-border: #d9d9d9;
+            --lehar-text: #0d0d0d;
+            --lehar-text-light: #666666;
             --shadow-subtle: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
             --shadow-card: 0 4px 6px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.06);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --lehar-grey: #b3b3b3;
+                --lehar-light-grey: #666666;
+                --lehar-background: #0d0d0d;
+                --lehar-off-white: #1a1a1a;
+                --lehar-border: #333333;
+                --lehar-text: #f2f2f2;
+                --lehar-text-light: #b3b3b3;
+                --shadow-card: 0 4px 6px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.4);
+            }
         }
 
         * {
@@ -54,10 +73,10 @@ $endif$
         }
 
         body {
-            font-family: 'Mukta Mahee', 'Crimson Text', Georgia, serif;
+            font-family: "Sama Gurmukhi", "Lehar Gurmukhi", "SF Pro Text", system-ui, sans-serif;
             background-color: var(--lehar-background);
             color: var(--lehar-text);
-            line-height: 1.6;
+            line-height: 1.65;
             font-size: 16px;
         }
 
@@ -116,7 +135,7 @@ $endif$
 
         /* Navigation bar - Lehar style */
         .nav-bar {
-            background: var(--lehar-navy);
+            background: var(--lehar-bar);
             padding: 0.5rem 0;
             margin-bottom: 2rem;
         }
@@ -180,10 +199,9 @@ $endif$
         }
 
         .section-title {
-            font-family: 'Crimson Text', serif;
             font-size: 1.8rem;
             font-weight: 600;
-            color: var(--lehar-navy);
+            color: var(--lehar-text);
             margin: 0;
         }
 
@@ -243,10 +261,9 @@ $endif$
         }
 
         .issue-card h3 {
-            font-family: 'Crimson Text', serif;
             font-size: 1.3rem;
             font-weight: 600;
-            color: var(--lehar-navy);
+            color: var(--lehar-text);
             margin-bottom: 0.75rem;
             line-height: 1.3;
         }
@@ -269,8 +286,6 @@ $endif$
             padding: 0.75rem 1.5rem;
             font-weight: 600;
             font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
             transition: all 0.2s ease;
             border: 2px solid var(--lehar-red);
         }
@@ -309,9 +324,8 @@ $endif$
         }
 
         .empty-state h2 {
-            font-family: 'Crimson Text', serif;
             font-size: 1.8rem;
-            color: var(--lehar-navy);
+            color: var(--lehar-text);
             margin-bottom: 1rem;
         }
 
@@ -321,7 +335,7 @@ $endif$
 
         /* Footer: a dark band with the logo, the tagline and the year */
         .site-foot {
-            background: #1a1a1a;
+            background: var(--lehar-bar);
             color: #d9d9d9;
             margin-top: 3rem;
         }
@@ -358,7 +372,7 @@ $endif$
             position: absolute;
             left: -9999px;
             top: 0.5rem;
-            background: var(--lehar-text);
+            background: var(--lehar-red);
             color: #ffffff;
             padding: 0.5rem 1rem;
             z-index: 10;
