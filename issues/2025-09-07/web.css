@@ -8,7 +8,9 @@
   font-display: swap;
   unicode-range: U+0951-0952, U+0964-0965, U+0A01-0A76, U+200C-200D, U+20B9, U+25CC, U+262C, U+A830-A839;
 }
+/* Each colour is written once with light-dark(). It follows the device, and the button sets data-theme to override it. */
 :root {
+  color-scheme: light dark;
   --red: #e3120b;
   --red-text: #cc100a;
   --text: #0d0d0d;
@@ -18,16 +20,18 @@
   --paper: #ffffff;
   --gutter: max(1.25rem, env(safe-area-inset-left), env(safe-area-inset-right));
 }
-@media (prefers-color-scheme: dark) {
+@supports (color: light-dark(#000, #fff)) {
   :root {
-    --red-text: #f6423c;
-    --text: #f2f2f2;
-    --meta: #b3b3b3;
-    --border: #333333;
-    --light: #1a1a1a;
-    --paper: #0d0d0d;
+    --red-text: light-dark(#cc100a, #f6423c);
+    --text: light-dark(#0d0d0d, #f2f2f2);
+    --meta: light-dark(#666666, #b3b3b3);
+    --border: light-dark(#d9d9d9, #333333);
+    --light: light-dark(#f2f2f2, #1a1a1a);
+    --paper: light-dark(#ffffff, #0d0d0d);
   }
 }
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
 * { box-sizing: border-box; }
 html {
   -webkit-text-size-adjust: 100%;
@@ -65,6 +69,10 @@ a:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
 .bar .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 4rem; }
 .bar .logo { display: block; line-height: 0; }
 .bar .logo img { display: block; height: 2.5rem; width: auto; border-radius: 5px; }
+.bar .tools { display: flex; align-items: center; gap: 0.75rem; }
+.theme { display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; flex: none; border: 1.5px solid var(--border); border-radius: 50%; background: none; color: var(--text); cursor: pointer; }
+.theme:hover { border-color: var(--red); }
+.theme svg { width: 1.25rem; height: 1.25rem; }
 .bar .all { display: inline-flex; align-items: center; min-height: 2.75rem; font-size: 0.95rem; font-weight: 600; text-decoration: none; color: var(--text); }
 
 /* The head of the issue: the cover and the contents, side by side. */

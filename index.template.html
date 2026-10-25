@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light dark">
+    <script>try{var t=localStorage.getItem("lehar-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
     <meta name="keywords" content="ਪੰਜਾਬੀ ਮੈਗਜ਼ੀਨ, ਪੰਜਾਬੀ ਖ਼ਬਰਾਂ, ਪੰਜਾਬੀ ਲੇਖ, ਪੰਜਾਬੀ ਸਾਹਿਤ, ਪੰਜਾਬੀ ਸੰਗੀਤ, ਪੰਜਾਬੀ ਸੰਸਕ੍ਰਿਤੀ, Punjabi magazine, Punjabi news, Punjabi articles">
     <title>$site_meta.site_name$</title>
     <!-- <link rel="icon" type="image/png" sizes="32x32" href="favicon.png"> -->
@@ -37,8 +38,10 @@ $endif$
             unicode-range: U+0951-0952, U+0964-0965, U+0A01-0A76, U+200C-200D, U+20B9, U+25CC, U+262C, U+A830-A839;
         }
 
-        /* Colours follow the design language: red, then the grey scale. */
+        /* Colours follow the design language: red, then the grey scale.
+           Each colour is written once with light-dark(). It follows the device, and the button sets data-theme to override it. */
         :root {
+            color-scheme: light dark;
             --lehar-red: #e3120b;
             --lehar-red-hover: #cc100a;
             --lehar-bar: #1a1a1a;
@@ -53,17 +56,49 @@ $endif$
             --shadow-card: 0 4px 6px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.06);
         }
 
-        @media (prefers-color-scheme: dark) {
+        @supports (color: light-dark(#000, #fff)) {
             :root {
-                --lehar-grey: #b3b3b3;
-                --lehar-light-grey: #666666;
-                --lehar-background: #0d0d0d;
-                --lehar-off-white: #1a1a1a;
-                --lehar-border: #333333;
-                --lehar-text: #f2f2f2;
-                --lehar-text-light: #b3b3b3;
-                --shadow-card: 0 4px 6px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.4);
+                --lehar-grey: light-dark(#666666, #b3b3b3);
+                --lehar-light-grey: light-dark(#b3b3b3, #666666);
+                --lehar-background: light-dark(#ffffff, #0d0d0d);
+                --lehar-off-white: light-dark(#f2f2f2, #1a1a1a);
+                --lehar-border: light-dark(#d9d9d9, #333333);
+                --lehar-text: light-dark(#0d0d0d, #f2f2f2);
+                --lehar-text-light: light-dark(#666666, #b3b3b3);
             }
+        }
+
+        :root[data-theme="light"] { color-scheme: light; }
+        :root[data-theme="dark"] { color-scheme: dark; }
+
+        /* The theme button */
+        .header-tools {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.75rem;
+            height: 2.75rem;
+            flex: none;
+            border: 1.5px solid var(--lehar-border);
+            border-radius: 50%;
+            background: none;
+            color: var(--lehar-text);
+            cursor: pointer;
+        }
+
+        .theme:hover {
+            border-color: var(--lehar-red);
+        }
+
+        .theme svg {
+            width: 1.25rem;
+            height: 1.25rem;
         }
 
         * {
@@ -542,7 +577,10 @@ $endif$
         <header>
             <div class="header-content">
                 <div class="logo" id="logoContainer">$if(site_meta.logo)$<img src="$site_meta.logo$" alt="$site_meta.site_name$">$endif$</div>
-                <p class="subtitle">ਪੰਜਾਬੀ ਮੈਗਜ਼ੀਨ • ਡਿਜੀਟਲ ਸੰਗ੍ਰਹਿ</p>
+                <div class="header-tools">
+                    <p class="subtitle">ਪੰਜਾਬੀ ਮੈਗਜ਼ੀਨ • ਡਿਜੀਟਲ ਸੰਗ੍ਰਹਿ</p>
+                    <button class="theme" type="button" aria-label="ਥੀਮ ਬਦਲੋ" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg></button>
+                </div>
             </div>
         </header>
 
@@ -611,6 +649,18 @@ $endif$
         </footer>
     </div>
 
+    <script>
+        (function () {
+            var d = document.documentElement, b = document.querySelector('.theme');
+            function dark() { return (d.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark'; }
+            b.setAttribute('aria-pressed', dark());
+            b.onclick = function () {
+                d.dataset.theme = dark() ? 'light' : 'dark';
+                b.setAttribute('aria-pressed', dark());
+                try { localStorage.setItem('lehar-theme', d.dataset.theme); } catch (e) {}
+            };
+        })();
+    </script>
     <script>
         // Hide logo container if it's empty or only contains whitespace/placeholders
         document.addEventListener('DOMContentLoaded', function() {

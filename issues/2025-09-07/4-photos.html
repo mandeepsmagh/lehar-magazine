@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#e3120b">
+  <script>try{var t=localStorage.getItem("lehar-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
   <title>ਤਸਵੀਰਾਂ · ਲਹਿਰ · 7 ਸਤੰਬਰ 2025</title>
   <link rel="stylesheet" href="web.css">
 </head>
@@ -14,7 +15,10 @@
   <div class="wrap">
     <a class="logo" href="../../"><img src="../../assets/logo.png" alt="ਲਹਿਰ" height="40"></a>
     <nav class="menu" aria-label="ਭਾਗ"><a href="1-page-start.html">ਦੁਨੀਆ</a><a href="2-australia.html">ਆਸਟ੍ਰੇਲੀਆ</a><a href="3-science.html">ਵਿਗਿਆਨ ਅਤੇ ਟੈਕਨੋਲੋਜੀ</a><a aria-current="page" href="4-photos.html">ਤਸਵੀਰਾਂ</a><a href="5-india.html">ਭਾਰਤ</a></nav>
-    <a class="all" href="../../">ਸਾਰੇ ਅੰਕ</a>
+    <div class="tools">
+      <a class="all" href="../../">ਸਾਰੇ ਅੰਕ</a>
+      <button class="theme" type="button" aria-label="ਥੀਮ ਬਦਲੋ" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg></button>
+    </div>
   </div>
 </header>
 <main class="wrap" id="content">
@@ -60,5 +64,17 @@
     <a href="#top">ਉੱਪਰ ↑</a>
   </div>
 </footer>
+<script>
+(function () {
+  var d = document.documentElement, b = document.querySelector('.theme');
+  function dark() { return (d.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark'; }
+  b.setAttribute('aria-pressed', dark());
+  b.onclick = function () {
+    d.dataset.theme = dark() ? 'light' : 'dark';
+    b.setAttribute('aria-pressed', dark());
+    try { localStorage.setItem('lehar-theme', d.dataset.theme); } catch (e) {}
+  };
+})();
+</script>
 </body>
 </html>
