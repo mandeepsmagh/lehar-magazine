@@ -1,3 +1,36 @@
+/* Made from design/tokens.typ by make. Do not edit. */
+:root {
+  --size-source: 0.758;
+  --size-kicker: 0.871;
+  --size-caption: 0.871;
+  --size-byline: 0.871;
+  --size-folio: 0.871;
+  --size-toc-entry: 0.871;
+  --size-sidebar: 0.871;
+  --size-section: 1.149;
+  --size-body: 1;
+  --size-chart: 1.149;
+  --size-quote: 1.32;
+  --size-standfirst: 1.32;
+  --size-subhead: 1.516;
+  --size-toc-title: 1.516;
+  --size-headline: 2.639;
+  --pitch-body: 1.65;
+  --pitch-label: 1.65;
+  --pitch-title: 1.5;
+  --pitch-headline: 1.5;
+  --space-xs: 0.3;
+  --space-s: 0.6;
+  --space-m: 1.2;
+  --space-l: 1.8;
+  --space-headline: 0.4;
+  --color-primary: #e3120b;
+  --color-body: #0d0d0d;
+  --color-dark: #333333;
+  --color-meta: #666666;
+  --color-border: #d9d9d9;
+  --color-light: #f2f2f2;
+}
 /* Style for the web edition. It is built for a phone first: one column, large type, large tap targets.
    Colours, scale and leading follow the design language (design/language.typ). */
 /* Sama Gurmukhi is an Apple font. A device without it loads this file (34 KB, once). A device with it never does. */
@@ -11,8 +44,10 @@
 /* Each colour is written once with light-dark(). It follows the device, and the button sets data-theme to override it. */
 :root {
   color-scheme: light dark;
-  --red: #e3120b;
+  --body-size: 1.125rem;
+  --red: var(--color-primary);
   --red-text: #cc100a;
+  --text-dark: #333333;
   --text: #0d0d0d;
   --meta: #666666;
   --border: #d9d9d9;
@@ -23,6 +58,7 @@
 @supports (color: light-dark(#000, #fff)) {
   :root {
     --red-text: light-dark(#cc100a, #f6423c);
+    --text-dark: light-dark(#333333, #d9d9d9);
     --text: light-dark(#0d0d0d, #f2f2f2);
     --meta: light-dark(#666666, #b3b3b3);
     --border: light-dark(#d9d9d9, #333333);
@@ -45,8 +81,8 @@ html {
 body {
   margin: 0;
   font-family: "Sama Gurmukhi", "Lehar Gurmukhi", "SF Pro Text", system-ui, sans-serif;
-  font-size: 1.125rem;
-  line-height: 1.65;
+  font-size: var(--body-size);
+  line-height: var(--pitch-body);
   color: var(--text);
   background: var(--paper);
 }
@@ -102,30 +138,71 @@ a:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
 .pager .prev { grid-column: 1; }
 main > nav.crumbs + h1 { margin-top: 1rem; }
 
-p { margin: 0 0 0.9em 0; }
+/* Type roles. The --size, --pitch and --space values come from design/tokens.typ (see design/tokens.jq).
+   A size is a ratio of the body size, so one change of --body-size moves the whole scale. */
+p { margin: 0 0 calc(var(--space-m) * 1em); }
+
 /* A section label: small, red, with a rule above, as in the PDF. */
 h1 {
   color: var(--red-text);
-  font-size: 0.9rem;
+  font-size: calc(var(--size-section) * var(--body-size));
+  line-height: var(--pitch-label);
   border-top: 2px solid var(--red);
   padding-top: 0.4em;
-  margin: 3rem 0 0.8rem 0;
+  margin: 3rem 0 calc(var(--space-s) * var(--body-size)) 0;
 }
-/* An article headline. */
+/* The kicker: the line between the section label and the headline. */
+h1 + p:has(+ h2) {
+  font-size: calc(var(--size-kicker) * var(--body-size));
+  font-weight: 700;
+  line-height: var(--pitch-label);
+  color: var(--red-text);
+  margin: 0 0 calc(var(--space-xs) * var(--body-size));
+}
+/* An article headline. It is smaller on a phone, and it never goes past the headline size of the scale. */
 h2 {
-  font-size: clamp(1.75rem, 7vw, 2.4rem);
-  line-height: 1.4;
-  margin: 0.4em 0 0.5em 0;
+  font-size: clamp(calc(1.8 * var(--body-size)), 4vw + var(--body-size), calc(var(--size-headline) * var(--body-size)));
+  font-weight: 700;
+  line-height: var(--pitch-headline);
+  margin: calc(var(--space-s) * var(--body-size)) 0 calc(var(--space-headline) * 1em);
 }
-/* A group heading in the Brief (Politics, Business): smaller and red, as in the PDF.
+/* The standfirst: the paragraph under the headline. An article without one would style its first paragraph this way.
+   A byline is not styled here: CSS cannot tell it from a bold lead, so it needs a marker from the opener first. */
+h2 + p {
+  font-size: calc(var(--size-standfirst) * var(--body-size));
+  line-height: var(--pitch-title);
+  color: var(--text-dark);
+  margin: 0 0 calc(var(--space-s) * var(--body-size));
+}
+/* A group heading in the Brief (Politics, Business): the subhead size in red, as in the PDF.
    Pandoc puts an empty marker after it, so the heading is found by the marker. */
 h2:has(+ p > #brief-group) {
-  font-size: 1.3rem;
+  font-size: calc(var(--size-subhead) * var(--body-size));
+  line-height: var(--pitch-title);
   color: var(--red-text);
-  margin: 1.6em 0 0.6em 0;
+  margin: calc(var(--space-m) * var(--body-size)) 0 calc(var(--space-s) * var(--body-size));
 }
 p:has(> #brief-group:only-child) { display: none; }
-h3 { font-size: 1.3em; margin: 1.4em 0 0.4em 0; }
+h3 {
+  font-size: calc(var(--size-subhead) * var(--body-size));
+  line-height: var(--pitch-title);
+  color: var(--text-dark);
+  margin: calc(var(--space-l) * var(--body-size)) 0 calc(var(--space-s) * var(--body-size));
+}
+/* A sidebar: a panel with a red rule on top. Pandoc turns its lines into a paragraph with line breaks. */
+p:has(> br) {
+  background: var(--light);
+  border-top: 2px solid var(--red);
+  padding: 0.7em 0.8em;
+  font-size: calc(var(--size-sidebar) * var(--body-size));
+  line-height: var(--pitch-label);
+  margin: calc(var(--space-m) * var(--body-size)) 0;
+}
+p:has(> br) > strong:first-child {
+  display: block;
+  font-size: calc(1em / var(--size-sidebar));
+  margin-bottom: calc(var(--space-xs) * 1em);
+}
 /* Gurmukhi has no italics. Emphasis becomes a heavier weight, as in the PDF. */
 em, i { font-style: normal; font-weight: 600; }
 
@@ -135,7 +212,7 @@ figure img { height: auto !important; }
 figure { margin: 1.5rem 0; }
 figure p { margin: 0; }
 figure img { display: block; width: 100%; }
-figcaption { margin: 0.4rem 0 0; font-size: 0.85rem; color: var(--meta); }
+figcaption { margin: 0.4rem 0 0; font-size: calc(var(--size-caption) * var(--body-size)); line-height: var(--pitch-label); color: var(--meta); }
 table { width: 100%; border-collapse: collapse; margin: 0; }
 td { padding: 0 0.5rem 0 0; vertical-align: top; }
 td + td { padding: 0 0 0 0.5rem; }
@@ -147,11 +224,14 @@ td figure { margin-left: 0; margin-right: 0; }
   figcaption { margin: 0.4rem var(--gutter) 0; }
 }
 blockquote {
-  margin: 1.5rem 0;
-  padding: 0.6rem 1rem;
+  margin: calc(var(--space-m) * var(--body-size)) 0;
+  padding: 1em 1.5em;
   border-left: 4px solid var(--red);
   background: var(--light);
-  font-size: 1.15em;
+  font-size: calc(var(--size-quote) * var(--body-size));
+  font-weight: 500;
+  line-height: var(--pitch-title);
+  color: var(--text-dark);
 }
 blockquote p:last-child { margin-bottom: 0; }
 ol > li::marker { color: var(--red-text); font-weight: bold; }
@@ -172,7 +252,7 @@ ol > li::marker { color: var(--red-text); font-weight: bold; }
    The menu is hidden on a phone, where the contents page and the pager do the job. */
 .menu { display: none; }
 @media (min-width: 64rem) {
-  body { font-size: 1.2rem; }
+  :root { --body-size: 1.2rem; }
   .wrap { max-width: 40rem; }
   .bar .wrap { max-width: 64rem; }
   .menu { display: flex; flex: 1; flex-wrap: wrap; justify-content: center; gap: 0 1.5rem; }
