@@ -168,7 +168,7 @@ ol > li::marker { color: var(--red-text); font-weight: bold; }
 @media (min-width: 64rem) {
   body { font-size: 1.2rem; }
   .wrap { max-width: 40rem; }
-  .bar .wrap, .foot .wrap { max-width: 64rem; }
+  .bar .wrap { max-width: 64rem; }
   .menu { display: flex; flex: 1; flex-wrap: wrap; justify-content: center; gap: 0 1.5rem; }
   .menu a { display: inline-flex; align-items: center; min-height: 4rem; padding: 0 0.25rem; font-size: 0.95rem; font-weight: 600; text-decoration: none; color: var(--text); border-bottom: 3px solid transparent; border-top: 3px solid transparent; }
   .menu a:hover { color: var(--red-text); }
