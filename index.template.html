@@ -67,23 +67,31 @@ $endif$
             padding: 0 1rem;
         }
 
+        /* The footer sits at the bottom of the window when the page is short. */
+        body > .container {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body > .container > main {
+            flex: 1 0 auto;
+        }
+
         /* Header - Lehar style with red bar */
         header {
             background: var(--lehar-background);
             border-bottom: 4px solid var(--lehar-red);
-            padding: 2rem 0 1.5rem;
+            padding: 1.25rem 1rem;
             margin-bottom: 2rem;
         }
 
         .header-content {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            text-align: center;
-        }
-
-        .logo {
-            margin-bottom: 1rem;
+            justify-content: space-between;
+            gap: 1rem;
         }
 
         .logo img {
@@ -100,17 +108,10 @@ $endif$
         }
 
         .subtitle {
-            font-family: 'Crimson Text', serif;
-            font-size: 1.1rem;
-            color: var(--lehar-grey);
-            font-style: italic;
-            margin-bottom: 0.5rem;
-        }
-
-        .date-line {
-            font-size: 0.9rem;
-            color: var(--lehar-text-light);
+            font-size: 1.05rem;
             font-weight: 500;
+            color: var(--lehar-grey);
+            text-align: right;
         }
 
         /* Navigation bar - Lehar style */
@@ -325,14 +326,13 @@ $endif$
             margin-top: 3rem;
         }
 
-        .site-foot .container {
+        .foot-inner {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
             gap: 1.25rem;
-            padding-top: 2.5rem;
-            padding-bottom: 2.5rem;
+            padding: 1.75rem 1.5rem;
         }
 
         .foot-brand {
@@ -529,7 +529,6 @@ $endif$
             <div class="header-content">
                 <div class="logo" id="logoContainer">$if(site_meta.logo)$<img src="$site_meta.logo$" alt="$site_meta.site_name$">$endif$</div>
                 <p class="subtitle">ਪੰਜਾਬੀ ਮੈਗਜ਼ੀਨ • ਡਿਜੀਟਲ ਸੰਗ੍ਰਹਿ</p>
-                <p class="date-line" id="current-date"></p>
             </div>
         </header>
 
@@ -584,35 +583,21 @@ $else$
             </div>
 $endif$
         </main>
-    </div>
 
-    <footer class="site-foot">
-        <div class="container">
-            <div class="foot-brand">
+        <footer class="site-foot">
+            <div class="foot-inner">
+                <div class="foot-brand">
 $if(site_meta.logo)$
                 <img src="$site_meta.logo$" alt="$site_meta.site_name$">
 $endif$
                 <p>ਪੰਜਾਬੀ ਮੈਗਜ਼ੀਨ • ਡਿਜੀਟਲ ਸੰਗ੍ਰਹਿ</p>
+                </div>
+                <p>&copy; $year$ $site_meta.site_name$</p>
             </div>
-            <p>&copy; $year$ $site_meta.site_name$</p>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <script>
-        // Punjabi month names
-        const punjabiMonths = [
-            'ਜਨਵਰੀ', 'ਫਰਵਰੀ', 'ਮਾਰਚ', 'ਅਪ੍ਰੈਲ', 'ਮਈ', 'ਜੂਨ',
-            'ਜੁਲਾਈ', 'ਅਗਸਤ', 'ਸਤੰਬਰ', 'ਅਕਤੂਬਰ', 'ਨਵੰਬਰ', 'ਦਸੰਬਰ'
-        ];
-
-        // Display current date in proper Punjabi format
-        const currentDate = new Date();
-        const day = currentDate.getDate();
-        const month = punjabiMonths[currentDate.getMonth()];
-        const year = currentDate.getFullYear();
-        
-        document.getElementById('current-date').textContent = day + ' ' + month + ' ' + year;
-        
         // Hide logo container if it's empty or only contains whitespace/placeholders
         document.addEventListener('DOMContentLoaded', function() {
             const logoContainer = document.getElementById('logoContainer');
