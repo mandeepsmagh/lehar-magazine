@@ -383,19 +383,20 @@ $endif$
         </div>
 
         <main>
+$if(years)$
+$for(years)$
             <div class="section-header">
-                <h2 class="section-title">ਨਵੇਂ ਅੰਕ</h2>
+                <h2 class="section-title">$years.year$</h2>
             </div>
-            
+
             <div class="issues-grid">
-$if(issues)$
-$for(issues)$
+$for(years.issues)$
                 <div class="issue-card">
                     <div class="image-container">
                         <img src="$it.cover$" alt="$it.title$" loading="lazy">
                     </div>
                     <div class="content">
-                        <h3>$it.title$</h3>
+                        <h3>$it.card$</h3>
 $if(it.description)$
                         <p>$it.description$</p>
 $endif$
@@ -403,13 +404,16 @@ $endif$
                     </div>
                 </div>
 $endfor$
+            </div>
+$endfor$
 $else$
+            <div class="issues-grid">
                 <div class="empty-state">
                     <h2>ਅਜੇ ਕੋਈ ਅੰਕ ਨਹੀਂ</h2>
                     <p>ਜਲਦੀ ਹੀ ਨਵਾਂ ਅੰਕ ਆਵੇਗਾ।</p>
                 </div>
-$endif$
             </div>
+$endif$
         </main>
 
         <footer>
