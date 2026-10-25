@@ -8,8 +8,11 @@
   "issues": [
     {
       "title": "ਸਤੰਬਰ 2025",
+      "date": "7 ਸਤੰਬਰ 2025",
       "pdf": "issues/lehar-2025-09-07.pdf",
-      "cover": "issues/lehar-2025-09-07-cover.png",
+      "thumb": "issues/lehar-2025-09-07-thumb.jpg",
+      "tw": 495,
+      "th": 700,
       "web": "issues/2025-09-07/",
       "description": ""
     },
@@ -17,13 +20,21 @@
       "title": "ਅਗਸਤ ਪਹਿਲਾ ਅੰਕ 2025",
       "pdf": "issues/lehar-2025-08-01.pdf",
       "cover": "issues/lehar-2025-08-01-cover.png",
-      "description": ""
+      "description": "",
+      "thumb": "issues/lehar-2025-08-01-thumb.jpg",
+      "tw": 508,
+      "th": 700,
+      "date": "16 ਅਗਸਤ 2025"
     },
     {
       "title": "ਅਗਸਤ ਦੂਜਾ ਅੰਕ 2025",
       "pdf": "issues/lehar-2025-08-02.pdf",
       "cover": "issues/lehar-2025-08-02-cover.png",
-      "description": ""
+      "description": "",
+      "thumb": "issues/lehar-2025-08-02-thumb.jpg",
+      "tw": 508,
+      "th": 700,
+      "date": "23 ਅਗਸਤ 2025"
     }
   ]
 }

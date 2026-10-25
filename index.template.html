@@ -10,12 +10,12 @@
 $if(latest)$
     <meta property="og:title" content="$latest.title$ | $site_meta.site_name$">
     <meta property="og:description" content="$if(latest.description)$$latest.description$$else$$site_meta.default_description$$endif$">
-    <meta property="og:image" content="$site_meta.base_url$/$latest.cover$">
+    <meta property="og:image" content="$site_meta.base_url$/$latest.thumb$">
     <meta property="og:site_name" content="$site_meta.site_name$">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="pa_IN">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="$site_meta.base_url$/$latest.cover$">
+    <meta name="twitter:image" content="$site_meta.base_url$/$latest.thumb$">
     <meta name="description" content="$if(latest.description)$$latest.description$$else$$site_meta.default_description$$endif$">
 $else$
     <meta property="og:title" content="$site_meta.site_name$">
@@ -318,29 +318,80 @@ $endif$
             color: var(--lehar-text-light);
         }
 
-        /* Footer - Clean and minimal */
-        footer {
-            background: var(--lehar-off-white);
-            border-top: 1px solid var(--lehar-border);
-            padding: 2rem 0;
+        /* Footer: a dark band with the logo, the tagline and the year */
+        .site-foot {
+            background: #1a1a1a;
+            color: #d9d9d9;
             margin-top: 3rem;
-            text-align: center;
         }
 
-        .footer-content {
+        .site-foot .container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.25rem;
+            padding-top: 2.5rem;
+            padding-bottom: 2.5rem;
+        }
+
+        .foot-brand {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .foot-brand img {
+            display: block;
+            height: 2.25rem;
+            width: auto;
+            border-radius: 4px;
+        }
+
+        .site-foot p {
+            font-size: 0.9rem;
+        }
+
+        /* Skip link, focus and motion */
+        .skip {
+            position: absolute;
+            left: -9999px;
+            top: 0.5rem;
+            background: var(--lehar-text);
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            z-index: 10;
+        }
+
+        .skip:focus {
+            left: 0.5rem;
+        }
+
+        a:focus-visible {
+            outline: 3px solid var(--lehar-red);
+            outline-offset: 3px;
+        }
+
+        .issue-date {
             font-size: 0.85rem;
+            font-weight: 600;
             color: var(--lehar-text-light);
+            margin-bottom: 0.25rem;
         }
 
-        .footer-content p {
-            margin-bottom: 0.5rem;
+        .issues-grid {
+            list-style: none;
         }
 
-        .footer-divider {
-            width: 60px;
-            height: 2px;
-            background: var(--lehar-red);
-            margin: 1rem auto;
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+            }
+
+            .issue-card:hover img {
+                transform: none;
+            }
         }
 
         /* Responsive design */
@@ -393,6 +444,62 @@ $endif$
             }
         }
 
+        /* Phone: each issue is a row, a small cover on the left */
+        @media (max-width: 720px) {
+            .issues-grid {
+                display: block;
+                margin-bottom: 1rem;
+            }
+
+            .issue-card {
+                display: grid;
+                grid-template-columns: 96px minmax(0, 1fr);
+                column-gap: 1rem;
+                max-width: none;
+                border: 0;
+                border-bottom: 1px solid var(--lehar-border);
+                border-radius: 0;
+                padding: 1.1rem 0;
+            }
+
+            .issue-card:hover {
+                box-shadow: none;
+            }
+
+            .image-container {
+                height: auto;
+                padding: 0;
+                border: 0;
+                background: none;
+                align-items: flex-start;
+            }
+
+            .issue-card img {
+                box-shadow: 0 1px 2px rgba(0,0,0,0.12), 0 8px 14px -8px rgba(0,0,0,0.35);
+            }
+
+            .issue-card:hover img {
+                transform: none;
+            }
+
+            .content {
+                padding: 0;
+            }
+
+            .issue-card h3 {
+                font-size: 1.15rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .download-btn {
+                padding: 0.6rem 1.1rem;
+            }
+
+            .pdf-link {
+                margin-left: 0.75rem;
+            }
+        }
+
         /* Print-friendly styles */
         @media print {
             body {
@@ -416,6 +523,7 @@ $endif$
     </style>
 </head>
 <body>
+    <a class="skip" href="#archive">ਸੰਗ੍ਰਹਿ ’ਤੇ ਜਾਓ</a>
     <div class="container">
         <header>
             <div class="header-content">
@@ -433,7 +541,7 @@ $endif$
             </div>
         </div>
 
-        <main>
+        <main id="archive">
 $if(years)$
 $for(years)$
             <details class="year"$if(years.open)$ open$endif$>
@@ -441,13 +549,16 @@ $for(years)$
                 <h2 class="section-title">$years.year$ <span class="count">($years.count$)</span></h2>
             </summary>
 
-            <div class="issues-grid">
+            <ul class="issues-grid">
 $for(years.issues)$
-                <div class="issue-card">
-                    <div class="image-container">
-                        <img src="$it.cover$" alt="$it.title$" loading="lazy">
-                    </div>
+                <li class="issue-card">
+                    <a class="image-container" href="$if(it.web)$$it.web$$else$$it.pdf$$endif$" tabindex="-1" aria-hidden="true">
+                        <img src="$it.thumb$" alt="" width="$it.tw$" height="$it.th$" loading="lazy">
+                    </a>
                     <div class="content">
+$if(it.date)$
+                        <p class="issue-date">$it.date$</p>
+$endif$
                         <h3>$it.card$</h3>
 $if(it.description)$
                         <p>$it.description$</p>
@@ -459,9 +570,9 @@ $else$
                         <a href="$it.pdf$" class="download-btn" download>PDF ਡਾਊਨਲੋਡ ਕਰੋ</a>
 $endif$
                     </div>
-                </div>
+                </li>
 $endfor$
-            </div>
+            </ul>
             </details>
 $endfor$
 $else$
@@ -473,16 +584,19 @@ $else$
             </div>
 $endif$
         </main>
-
-        <footer>
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-divider"></div>
-                    <p id="copyright-year">&copy; <span id="current-year">2025</span> $site_meta.site_name$</p>
-                </div>
-            </div>
-        </footer>
     </div>
+
+    <footer class="site-foot">
+        <div class="container">
+            <div class="foot-brand">
+$if(site_meta.logo)$
+                <img src="$site_meta.logo$" alt="$site_meta.site_name$">
+$endif$
+                <p>ਪੰਜਾਬੀ ਮੈਗਜ਼ੀਨ • ਡਿਜੀਟਲ ਸੰਗ੍ਰਹਿ</p>
+            </div>
+            <p>&copy; $year$ $site_meta.site_name$</p>
+        </div>
+    </footer>
 
     <script>
         // Punjabi month names
@@ -499,9 +613,6 @@ $endif$
         
         document.getElementById('current-date').textContent = day + ' ' + month + ' ' + year;
         
-        // Update copyright year dynamically
-        document.getElementById('current-year').textContent = currentDate.getFullYear();
-
         // Hide logo container if it's empty or only contains whitespace/placeholders
         document.addEventListener('DOMContentLoaded', function() {
             const logoContainer = document.getElementById('logoContainer');

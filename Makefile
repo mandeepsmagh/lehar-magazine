@@ -5,6 +5,6 @@
 # A card shows the title without the year, because the year is the heading above it.
 # The Lehar source repo adds each issue with its "make publish".
 index.html: metadata.json index.template.html
-	jq '.issues |= (sort_by(.pdf) | reverse | map(.card = (.title | sub(" [0-9]{4}$$"; "")))) | .latest = .issues[0] | .years = (.issues | group_by(.pdf | capture("lehar-(?<y>[0-9]{4})").y) | reverse | map({year: (.[0].pdf | capture("lehar-(?<y>[0-9]{4})").y), count: length, issues: .}) | to_entries | map(.value + {open: (.key == 0)}))' metadata.json > .page.json
+	jq '.issues |= (sort_by(.pdf) | reverse | map(.card = (.title | sub(" [0-9]{4}$$"; "")))) | .latest = .issues[0] | .year = (now | strftime("%Y")) | .years = (.issues | group_by(.pdf | capture("lehar-(?<y>[0-9]{4})").y) | reverse | map({year: (.[0].pdf | capture("lehar-(?<y>[0-9]{4})").y), count: length, issues: .}) | to_entries | map(.value + {open: (.key == 0)}))' metadata.json > .page.json
 	pandoc -f markdown -t html --wrap=none --template index.template.html --metadata-file .page.json -o $@ /dev/null
 	rm .page.json

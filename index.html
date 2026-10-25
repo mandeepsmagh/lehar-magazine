@@ -9,12 +9,12 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <meta property="og:title" content="ਸਤੰਬਰ 2025 | ਲਹਿਰ">
     <meta property="og:description" content="ਪੰਜਾਬੀ ਮੈਗਜ਼ੀਨ">
-    <meta property="og:image" content="https://mandeepsmagh.github.io/lehar-magazine/issues/lehar-2025-09-07-cover.png">
+    <meta property="og:image" content="https://mandeepsmagh.github.io/lehar-magazine/issues/lehar-2025-09-07-thumb.jpg">
     <meta property="og:site_name" content="ਲਹਿਰ">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="pa_IN">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://mandeepsmagh.github.io/lehar-magazine/issues/lehar-2025-09-07-cover.png">
+    <meta name="twitter:image" content="https://mandeepsmagh.github.io/lehar-magazine/issues/lehar-2025-09-07-thumb.jpg">
     <meta name="description" content="ਪੰਜਾਬੀ ਮੈਗਜ਼ੀਨ">
     <link href="https://fonts.googleapis.com/css2?family=Mukta+Mahee:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
@@ -308,29 +308,80 @@
             color: var(--lehar-text-light);
         }
 
-        /* Footer - Clean and minimal */
-        footer {
-            background: var(--lehar-off-white);
-            border-top: 1px solid var(--lehar-border);
-            padding: 2rem 0;
+        /* Footer: a dark band with the logo, the tagline and the year */
+        .site-foot {
+            background: #1a1a1a;
+            color: #d9d9d9;
             margin-top: 3rem;
-            text-align: center;
         }
 
-        .footer-content {
+        .site-foot .container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.25rem;
+            padding-top: 2.5rem;
+            padding-bottom: 2.5rem;
+        }
+
+        .foot-brand {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .foot-brand img {
+            display: block;
+            height: 2.25rem;
+            width: auto;
+            border-radius: 4px;
+        }
+
+        .site-foot p {
+            font-size: 0.9rem;
+        }
+
+        /* Skip link, focus and motion */
+        .skip {
+            position: absolute;
+            left: -9999px;
+            top: 0.5rem;
+            background: var(--lehar-text);
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            z-index: 10;
+        }
+
+        .skip:focus {
+            left: 0.5rem;
+        }
+
+        a:focus-visible {
+            outline: 3px solid var(--lehar-red);
+            outline-offset: 3px;
+        }
+
+        .issue-date {
             font-size: 0.85rem;
+            font-weight: 600;
             color: var(--lehar-text-light);
+            margin-bottom: 0.25rem;
         }
 
-        .footer-content p {
-            margin-bottom: 0.5rem;
+        .issues-grid {
+            list-style: none;
         }
 
-        .footer-divider {
-            width: 60px;
-            height: 2px;
-            background: var(--lehar-red);
-            margin: 1rem auto;
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+            }
+
+            .issue-card:hover img {
+                transform: none;
+            }
         }
 
         /* Responsive design */
@@ -383,6 +434,62 @@
             }
         }
 
+        /* Phone: each issue is a row, a small cover on the left */
+        @media (max-width: 720px) {
+            .issues-grid {
+                display: block;
+                margin-bottom: 1rem;
+            }
+
+            .issue-card {
+                display: grid;
+                grid-template-columns: 96px minmax(0, 1fr);
+                column-gap: 1rem;
+                max-width: none;
+                border: 0;
+                border-bottom: 1px solid var(--lehar-border);
+                border-radius: 0;
+                padding: 1.1rem 0;
+            }
+
+            .issue-card:hover {
+                box-shadow: none;
+            }
+
+            .image-container {
+                height: auto;
+                padding: 0;
+                border: 0;
+                background: none;
+                align-items: flex-start;
+            }
+
+            .issue-card img {
+                box-shadow: 0 1px 2px rgba(0,0,0,0.12), 0 8px 14px -8px rgba(0,0,0,0.35);
+            }
+
+            .issue-card:hover img {
+                transform: none;
+            }
+
+            .content {
+                padding: 0;
+            }
+
+            .issue-card h3 {
+                font-size: 1.15rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .download-btn {
+                padding: 0.6rem 1.1rem;
+            }
+
+            .pdf-link {
+                margin-left: 0.75rem;
+            }
+        }
+
         /* Print-friendly styles */
         @media print {
             body {
@@ -406,6 +513,7 @@
     </style>
 </head>
 <body>
+    <a class="skip" href="#archive">ਸੰਗ੍ਰਹਿ ’ਤੇ ਜਾਓ</a>
     <div class="container">
         <header>
             <div class="header-content">
@@ -423,54 +531,58 @@
             </div>
         </div>
 
-        <main>
+        <main id="archive">
             <details class="year" open>
             <summary class="section-header">
                 <h2 class="section-title">2025 <span class="count">(3)</span></h2>
             </summary>
 
-            <div class="issues-grid">
-                <div class="issue-card">
-                    <div class="image-container">
-                        <img src="issues/lehar-2025-09-07-cover.png" alt="ਸਤੰਬਰ 2025" loading="lazy">
-                    </div>
+            <ul class="issues-grid">
+                <li class="issue-card">
+                    <a class="image-container" href="issues/2025-09-07/" tabindex="-1" aria-hidden="true">
+                        <img src="issues/lehar-2025-09-07-thumb.jpg" alt="" width="495" height="700" loading="lazy">
+                    </a>
                     <div class="content">
+                        <p class="issue-date">7 ਸਤੰਬਰ 2025</p>
                         <h3>ਸਤੰਬਰ</h3>
                         <a href="issues/2025-09-07/" class="download-btn read">ਪੜ੍ਹੋ</a>
                         <a href="issues/lehar-2025-09-07.pdf" class="pdf-link" download>PDF ਡਾਊਨਲੋਡ ਕਰੋ</a>
                     </div>
-                </div>
-                <div class="issue-card">
-                    <div class="image-container">
-                        <img src="issues/lehar-2025-08-02-cover.png" alt="ਅਗਸਤ ਦੂਜਾ ਅੰਕ 2025" loading="lazy">
-                    </div>
+                </li>
+                <li class="issue-card">
+                    <a class="image-container" href="issues/lehar-2025-08-02.pdf" tabindex="-1" aria-hidden="true">
+                        <img src="issues/lehar-2025-08-02-thumb.jpg" alt="" width="508" height="700" loading="lazy">
+                    </a>
                     <div class="content">
+                        <p class="issue-date">23 ਅਗਸਤ 2025</p>
                         <h3>ਅਗਸਤ ਦੂਜਾ ਅੰਕ</h3>
                         <a href="issues/lehar-2025-08-02.pdf" class="download-btn" download>PDF ਡਾਊਨਲੋਡ ਕਰੋ</a>
                     </div>
-                </div>
-                <div class="issue-card">
-                    <div class="image-container">
-                        <img src="issues/lehar-2025-08-01-cover.png" alt="ਅਗਸਤ ਪਹਿਲਾ ਅੰਕ 2025" loading="lazy">
-                    </div>
+                </li>
+                <li class="issue-card">
+                    <a class="image-container" href="issues/lehar-2025-08-01.pdf" tabindex="-1" aria-hidden="true">
+                        <img src="issues/lehar-2025-08-01-thumb.jpg" alt="" width="508" height="700" loading="lazy">
+                    </a>
                     <div class="content">
+                        <p class="issue-date">16 ਅਗਸਤ 2025</p>
                         <h3>ਅਗਸਤ ਪਹਿਲਾ ਅੰਕ</h3>
                         <a href="issues/lehar-2025-08-01.pdf" class="download-btn" download>PDF ਡਾਊਨਲੋਡ ਕਰੋ</a>
                     </div>
-                </div>
-            </div>
+                </li>
+            </ul>
             </details>
         </main>
-
-        <footer>
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-divider"></div>
-                    <p id="copyright-year">&copy; <span id="current-year">2025</span> ਲਹਿਰ</p>
-                </div>
-            </div>
-        </footer>
     </div>
+
+    <footer class="site-foot">
+        <div class="container">
+            <div class="foot-brand">
+                <img src="assets/logo.png" alt="ਲਹਿਰ">
+                <p>ਪੰਜਾਬੀ ਮੈਗਜ਼ੀਨ • ਡਿਜੀਟਲ ਸੰਗ੍ਰਹਿ</p>
+            </div>
+            <p>&copy; 2026 ਲਹਿਰ</p>
+        </div>
+    </footer>
 
     <script>
         // Punjabi month names
@@ -487,9 +599,6 @@
         
         document.getElementById('current-date').textContent = day + ' ' + month + ' ' + year;
         
-        // Update copyright year dynamically
-        document.getElementById('current-year').textContent = currentDate.getFullYear();
-
         // Hide logo container if it's empty or only contains whitespace/placeholders
         document.addEventListener('DOMContentLoaded', function() {
             const logoContainer = document.getElementById('logoContainer');
