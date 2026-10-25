@@ -1,0 +1,4 @@
+Noto Sans Gurmukhi, Gurmukhi part only, as a variable font (weights 400 to 700), in WOFF2 format.
+Copyright 2022 The Noto Project Authors. Licence: SIL Open Font License 1.1 (https://openfontlicense.org).
+Source: Google Fonts (https://fonts.google.com/noto/specimen/Noto+Sans+Gurmukhi), file served from fonts.gstatic.com, version v29, 2026-10-25.
+Used by the web edition only. The PDF embeds Sama Gurmukhi. The EPUB sets no font.

@@ -1,5 +1,13 @@
 /* Style for the web edition. It is built for a phone first: one column, large type, large tap targets.
    Colours, scale and leading follow the design language (design/language.typ). */
+/* Sama Gurmukhi is an Apple font. A device without it loads this file (34 KB, once). A device with it never does. */
+@font-face {
+  font-family: "Lehar Gurmukhi";
+  src: url("../../assets/fonts/noto-sans-gurmukhi.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+  unicode-range: U+0951-0952, U+0964-0965, U+0A01-0A76, U+200C-200D, U+20B9, U+25CC, U+262C, U+A830-A839;
+}
 :root {
   --red: #e3120b;
   --red-text: #cc100a;
@@ -32,7 +40,7 @@ html {
 }
 body {
   margin: 0;
-  font-family: "Sama Gurmukhi", "Noto Sans Gurmukhi", "SF Pro Text", system-ui, sans-serif;
+  font-family: "Sama Gurmukhi", "Lehar Gurmukhi", "SF Pro Text", system-ui, sans-serif;
   font-size: 1.125rem;
   line-height: 1.65;
   color: var(--text);
