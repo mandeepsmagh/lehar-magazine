@@ -44,7 +44,6 @@ $endif$
             color-scheme: light dark;
             --lehar-red: #e3120b;
             --lehar-red-hover: #cc100a;
-            --lehar-bar: #1a1a1a;
             --lehar-grey: #666666;
             --lehar-light-grey: #b3b3b3;
             --lehar-background: #ffffff;
@@ -138,7 +137,7 @@ $endif$
             background: var(--lehar-background);
             border-bottom: 4px solid var(--lehar-red);
             padding: 1.25rem 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .header-content {
@@ -166,22 +165,6 @@ $endif$
             font-weight: 500;
             color: var(--lehar-grey);
             text-align: right;
-        }
-
-        /* Navigation bar - Lehar style */
-        .nav-bar {
-            background: var(--lehar-bar);
-            padding: 0.5rem 0;
-            margin-bottom: 2rem;
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 0.9rem;
-            font-weight: 500;
         }
 
         /* Main content area */
@@ -368,10 +351,10 @@ $endif$
             color: var(--lehar-text-light);
         }
 
-        /* Footer: a dark band with the logo, the tagline and the year */
+        /* Footer: a hairline with the logo, the tagline and the year */
         .site-foot {
-            background: var(--lehar-bar);
-            color: #d9d9d9;
+            border-top: 1px solid var(--lehar-border);
+            color: var(--lehar-text-light);
             margin-top: 3rem;
         }
 
@@ -381,7 +364,7 @@ $endif$
             align-items: center;
             justify-content: space-between;
             gap: 1.25rem;
-            padding: 1.75rem 1.5rem;
+            padding: 0.9rem 1.5rem;
         }
 
         .foot-brand {
@@ -393,7 +376,7 @@ $endif$
 
         .foot-brand img {
             display: block;
-            height: 2.25rem;
+            height: 1.75rem;
             width: auto;
             border-radius: 4px;
         }
@@ -555,10 +538,6 @@ $endif$
                 background: white;
             }
             
-            .nav-bar {
-                display: none;
-            }
-            
             .issue-card {
                 break-inside: avoid;
             }
@@ -583,14 +562,6 @@ $endif$
                 </div>
             </div>
         </header>
-
-        <div class="nav-bar">
-            <div class="container">
-                <div class="nav-content">
-                    ਸੰਗ੍ਰਹਿ • ਅੰਕ • ਡਾਊਨਲੋਡ
-                </div>
-            </div>
-        </div>
 
         <main id="archive">
 $if(years)$
