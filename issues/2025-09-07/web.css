@@ -151,3 +151,27 @@ ol > li::marker { color: var(--red-text); font-weight: bold; }
 .foot .wrap { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; }
 .foot a { display: inline-flex; align-items: center; min-height: 2.75rem; font-weight: 600; text-decoration: none; color: var(--text); }
 .foot a.pdf { color: var(--red-text); }
+
+/* Wide screens: bigger type, a section menu in the bar, photos wider than the text, and a larger contents page.
+   The menu is hidden on a phone, where the contents page and the pager do the job. */
+.menu { display: none; }
+@media (min-width: 64rem) {
+  body { font-size: 1.2rem; }
+  .wrap { max-width: 40rem; }
+  .bar .wrap, .foot .wrap { max-width: 64rem; }
+  .menu { display: flex; flex: 1; flex-wrap: wrap; justify-content: center; gap: 0 1.5rem; }
+  .menu a { display: inline-flex; align-items: center; min-height: 4rem; padding: 0 0.25rem; font-size: 0.95rem; font-weight: 600; text-decoration: none; color: var(--text); border-bottom: 3px solid transparent; border-top: 3px solid transparent; }
+  .menu a:hover { color: var(--red-text); }
+  .menu a[aria-current="page"] { border-bottom-color: var(--red); }
+  figure { width: 54rem; margin: 1.5rem 0 1.5rem calc(50% - 27rem); }
+  table { width: 54rem; margin-left: calc(50% - 27rem); }
+  td { padding: 0 0.5rem 0 0; }
+  td + td { padding: 0 0 0 0.5rem; }
+  td figure { width: 100%; margin: 1.5rem 0; }
+  main.index { max-width: 60rem; }
+  .issue-head { gap: 3rem; padding-top: 3rem; }
+  .issue-head .cover { flex: 0 0 20rem; width: 20rem; max-width: 20rem; }
+  .issue-info .date { font-size: 1.5rem; }
+  #TOC a { font-size: 1.2rem; }
+  .start a { font-size: 1.1rem; min-height: 3.25rem; }
+}
