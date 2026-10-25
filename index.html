@@ -130,6 +130,44 @@
             padding-bottom: 0.5rem;
         }
 
+        /* One block for each year. The newest year is open and the older years are closed. */
+        .year {
+            margin-bottom: 1.5rem;
+        }
+
+        .year > summary {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            cursor: pointer;
+            list-style: none;
+        }
+
+        .year > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .year > summary::after {
+            content: "+";
+            color: var(--lehar-red);
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        .year[open] > summary::after {
+            content: "\2212";
+        }
+
+        .year:not([open]) > summary {
+            margin-bottom: 0;
+        }
+
+        .count {
+            color: var(--lehar-text-light);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
         .section-title {
             font-family: 'Crimson Text', serif;
             font-size: 1.8rem;
@@ -373,9 +411,10 @@
         </div>
 
         <main>
-            <div class="section-header">
-                <h2 class="section-title">2025</h2>
-            </div>
+            <details class="year" open>
+            <summary class="section-header">
+                <h2 class="section-title">2025 <span class="count">(3)</span></h2>
+            </summary>
 
             <div class="issues-grid">
                 <div class="issue-card">
@@ -406,6 +445,7 @@
                     </div>
                 </div>
             </div>
+            </details>
         </main>
 
         <footer>
