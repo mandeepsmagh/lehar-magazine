@@ -286,6 +286,19 @@ $endif$
             font-weight: bold;
         }
 
+        .download-btn.read::before {
+            content: none;
+        }
+
+        .pdf-link {
+            display: inline-block;
+            margin-left: 1rem;
+            padding: 0.75rem 0;
+            color: var(--lehar-grey);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
         /* Empty state */
         .empty-state {
             text-align: center;
@@ -439,7 +452,12 @@ $for(years.issues)$
 $if(it.description)$
                         <p>$it.description$</p>
 $endif$
+$if(it.web)$
+                        <a href="$it.web$" class="download-btn read">ਪੜ੍ਹੋ</a>
+                        <a href="$it.pdf$" class="pdf-link" download>PDF ਡਾਊਨਲੋਡ ਕਰੋ</a>
+$else$
                         <a href="$it.pdf$" class="download-btn" download>PDF ਡਾਊਨਲੋਡ ਕਰੋ</a>
+$endif$
                     </div>
                 </div>
 $endfor$
